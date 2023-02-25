@@ -1,4 +1,6 @@
+"use client";
 import React from "react";
+import { Pagination } from "@nextui-org/react";
 import Footer from "@/components/Footer";
 import HeroSection from "@/components/HeroSection";
 import Header from "@/components/Header";
@@ -150,6 +152,10 @@ const Index = () => {
               </div>
             ))}
           </div>
+          <br />
+          <center>
+            <Pagination total={12} initialPage={1} />
+          </center>
         </div>
       </div>
       <Footer />

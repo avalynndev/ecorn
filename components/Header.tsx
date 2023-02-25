@@ -1,6 +1,7 @@
+"use client";
+
 import React from "react";
 import { useState } from "react";
-import { signIn } from "next-auth/react";
 import { Dialog } from "@headlessui/react";
 const navigation = [
   { name: "Product", href: "/product" },
@@ -15,7 +16,7 @@ const Header = () => {
       <nav className="flex items-center justify-between" aria-label="Global">
         <div className="flex lg:flex-1">
           <a href="/" className="-m-1.5 p-1.5">
-            <span className="sr-only">E-corn</span>
+            <span className="sr-only">title</span>
             <img
               className="h-8"
               src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
@@ -44,14 +45,12 @@ const Header = () => {
           ))}
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <button
-            onClick={() => {
-              signIn;
-            }}
+          <a
+            href="/protected"
             className="text-sm font-semibold leading-6 text-gray-900"
           >
             Log in <span aria-hidden="true">&rarr;</span>
-          </button>
+          </a>
         </div>
       </nav>
       <Dialog as="div" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
@@ -87,14 +86,12 @@ const Header = () => {
                 ))}
               </div>
               <div className="py-6">
-                <button
-                  onClick={() => {
-                    signIn;
-                  }}
+                <a
+                  href="/protected"
                   className="-mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-6 text-gray-900 hover:bg-gray-400/10"
                 >
                   Log in
-                </button>
+                </a>
               </div>
             </div>
           </div>
