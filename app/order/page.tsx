@@ -1,9 +1,10 @@
-import { Heading  } from "@chakra-ui/react";
+"use client";
+import { Heading } from "@chakra-ui/react";
 
 export default function Home() {
   return (
-  <>
-  <Heading>Contact</Heading>
-  </>
-  )
+    <>
+      <Heading>Contact</Heading>
+    </>
+  );
 }
