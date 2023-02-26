@@ -48,7 +48,17 @@ const products = [
   },
 ];
 
-const Index = ({ productsPerPage = 2}) => {
+const productsPerPage = 2
+
+export async function getStaticProps() {
+  return {
+    props: {productsPerPage},
+  };
+}
+
+
+
+const Index = ({}) => {
   const [currentPage, setCurrentPage] = useState(1); // initialize current page to 1
   const lastProductIndex = currentPage * productsPerPage;
   const firstProductIndex = lastProductIndex - productsPerPage;
