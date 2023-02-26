@@ -126,7 +126,7 @@ const Index = ({}) => {
             <Pagination
               total={Math.ceil(products.length / 2)}
               initialPage={1}
-              currentpage={currentPage}
+              currentPage={currentPage}
               onChange={handlePageChange}
             />
           </div>
