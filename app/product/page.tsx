@@ -48,20 +48,12 @@ const products = [
   },
 ];
 
-const productsPerPage = 2
-
-export async function getStaticProps() {
-  return {
-    props: {productsPerPage},
-  };
-}
-
 
 
 const Index = ({}) => {
   const [currentPage, setCurrentPage] = useState(1); // initialize current page to 1
-  const lastProductIndex = currentPage * productsPerPage;
-  const firstProductIndex = lastProductIndex - productsPerPage;
+  const lastProductIndex = currentPage * 2;
+  const firstProductIndex = lastProductIndex - 2;
   const currentProducts = products.slice(firstProductIndex, lastProductIndex);
 
   const handlePageChange = (page: any) => {
@@ -132,7 +124,7 @@ const Index = ({}) => {
           <br />
           <div className="flex items-center justify-center">
             <Pagination
-              total={Math.ceil(products.length / productsPerPage)}
+              total={Math.ceil(products.length / 2)}
               initialPage={1}
               currentpage={currentPage}
               onChange={handlePageChange}
