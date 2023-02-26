@@ -134,3 +134,5 @@ const Index = ({ productsPerPage = 2}) => {
     </div>
   );
 }
+
+export default Index;
