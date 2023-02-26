@@ -1,5 +1,21 @@
 {
-  "private": true,
+  "name": "ecorn",
+  "version": "1.0.0",
+  "main": "next.config.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/avalynndev/ecorn.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/avalynndev/ecorn/issues"
+  },
+  "homepage": "https://github.com/avalynndev/ecorn#readme",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -10,6 +26,7 @@
     "prisma:migrate": "prisma migrate deploy"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.12",
     "@next/font": "^13.0.5",
     "@nextui-org/react": "^1.0.0-beta.12",
     "@prisma/client": "^4.6.1",
