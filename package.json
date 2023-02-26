@@ -26,10 +26,6 @@
     "prisma:migrate": "prisma migrate deploy"
   },
   "dependencies": {
-    "@chakra-ui/next-js": "^2.0.1",
-    "@chakra-ui/react": "^2.5.1",
-    "@emotion/react": "^11.10.6",
-    "@emotion/styled": "^11.10.6",
     "@headlessui/react": "^1.7.12",
     "@next/font": "^13.0.5",
     "@nextui-org/react": "^1.0.0-beta.12",
@@ -38,10 +34,8 @@
     "@types/react": "^18.0.25",
     "@types/react-dom": "^18.0.11",
     "bcrypt": "^5.1.0",
-    "framer-motion": "^10.0.0",
     "next": "13.2.1",
     "next-auth": "^4.19.2",
-    "nodemailer": "^6.9.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.0"

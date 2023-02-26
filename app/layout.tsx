@@ -1,7 +1,5 @@
-"use client";
+// These styles apply to every route in the application
 import "@/styles/globals.css";
-import { CacheProvider } from "@chakra-ui/next-js";
-import { ChakraProvider } from "@chakra-ui/react";
 import { Inter } from "@next/font/google";
 import Toaster from "@/components/toaster";
 import AuthStatus from "@/components/auth-status";
@@ -18,13 +16,10 @@ export default async function RootLayout({
   const AuthStatusDiv = await AuthStatus();
   return (
     <html lang="en">
-      <head />
       <body className={inter.variable}>
         <Toaster />
         {AuthStatusDiv}
-        <CacheProvider>
-          <ChakraProvider>{children}</ChakraProvider>
-        </CacheProvider>
+        {children}
       </body>
     </html>
   );
