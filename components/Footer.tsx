@@ -5,7 +5,7 @@ const Footer = () => {
     <footer className="w-full px-4 mx-auto mt-24 max-w-7xl sm:px-6 sm:mt-32 lg:px-8">
       <div className="py-12 border-t md:flex md:items-center md:justify-between">
         <div className="flex justify-center space-x-6 md:order-2">
-          <a href="https://www.instagram.com/avalynndev/" className="text-gray-400 hover:text-gray-500">
+          <a href="https://www.instagram.com/sahasra_draws/" className="text-gray-400 hover:text-gray-500">
             <span className="sr-only">Instagram</span>
             <svg
               fill="currentColor"
@@ -20,7 +20,7 @@ const Footer = () => {
               ></path>
             </svg>
           </a>
-          <a href="https://github.com/avalynndev" className="text-gray-400 hover:text-gray-500">
+          <a href="https://github.com/avalynndev/ecorn" className="text-gray-400 hover:text-gray-500">
             <span className="sr-only">GitHub</span>
             <svg
               fill="currentColor"
