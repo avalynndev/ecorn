@@ -1,4 +1,5 @@
 "use client"
+import SignOut from "@/components/sign-out";
 import { useState } from "react";
 import { sendContactForm } from "../../lib/api";
 interface FormValues {
@@ -165,6 +166,7 @@ export default function Home() {
       >
         Submit
           </Button>
+          <br/><SignOut />
             </Container>
         </ChakraProvider>
     </CacheProvider>

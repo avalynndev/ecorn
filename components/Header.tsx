@@ -5,9 +5,8 @@ import { useState } from "react";
 import { Dialog } from "@headlessui/react";
 import Image from "next/image";
 const navigation = [
-  { name: "Product", href: "/product" },
-  { name: "Features", href: "/features" },
-  { name: "Company", href: "/about" },
+  { name: "Products", href: "/products" },
+  { name: "Pre-Order", href: "/preorder"}
 ];
 
 const Header = () => {
@@ -17,7 +16,7 @@ const Header = () => {
       <nav className="flex items-center justify-between" aria-label="Global">
         <div className="flex lg:flex-1">
           <a href="/" className="-m-1.5 p-1.5">
-            <span className="sr-only">title</span>
+            <span className="sr-only">Ecorn</span>
             <Image
               className="h-8"
               src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
@@ -47,7 +46,7 @@ const Header = () => {
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <a
-            href="/protected"
+            href="/preorder"
             className="text-sm font-semibold leading-6 text-gray-900"
           >
             Log in <span aria-hidden="true">&rarr;</span>
@@ -88,7 +87,7 @@ const Header = () => {
               </div>
               <div className="py-6">
                 <a
-                  href="/protected"
+                  href="/preorder"
                   className="-mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-6 text-gray-900 hover:bg-gray-400/10"
                 >
                   Log in

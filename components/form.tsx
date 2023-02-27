@@ -25,7 +25,7 @@ export default function Form({ type }: { type: "login" | "register" }) {
           }).then(({ ok, error }) => {
             setLoading(false);
             if (ok) {
-              router.push("/protected");
+              router.push("/preorder");
             } else {
               toast.error(error);
             }
