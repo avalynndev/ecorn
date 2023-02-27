@@ -8,7 +8,7 @@ export default function Login() {
         <div className="flex flex-col items-center justify-center space-y-3 border-b border-gray-200 bg-white px-4 py-6 pt-8 text-center sm:px-16">
           <a href="">
             <img
-              src="/logo.png"
+              src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
               alt="Logo"
               className="h-10 w-10 rounded-full"
               width={20}

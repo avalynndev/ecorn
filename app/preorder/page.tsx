@@ -1,32 +1,4 @@
 "use client";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import SignOut from "@/components/sign-out";
-import { sendContactForm } from "../../lib/api";
-interface FormValues {
-  name: string;
-  email: string;
-  subject: string;
-  message: string;
-}
-
-interface FormState {
-  isLoading: boolean;
-  error: string;
-  values: FormValues;
-}
-const initValues: FormValues = {
-  name: "",
-  email: "",
-  subject: "",
-  message: "",
-};
-
-const initState: FormState = {
-  isLoading: false,
-  error: "",
-  values: initValues,
-};
 import { CacheProvider } from "@chakra-ui/next-js";
 import { ChakraProvider } from "@chakra-ui/react";
 import {
@@ -40,6 +12,34 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { Heading, Container, extendTheme } from "@chakra-ui/react";
+import { useState } from "react";
+import SignOut from "@/components/sign-out";
+import { sendContactForm } from "../../lib/api";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+
+interface FormValues {
+  name: string;
+  email: string;
+  message: string;
+}
+
+interface FormState {
+  isLoading: boolean;
+  error: string;
+  values: FormValues;
+}
+const initValues: FormValues = {
+  name: "",
+  email: "",
+  message: "",
+};
+
+const initState: FormState = {
+  isLoading: false,
+  error: "",
+  values: initValues,
+};
 
 export default function Home() {
   const toast = useToast();
@@ -88,12 +88,24 @@ export default function Home() {
 
   return (
     <>
-      <div className="flex h-screen w-screen items-center justify-center bg-gray-50">
+      <Header />
+      <div className="absolute top-5 w-full flex justify-center items-center">
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <SignOut />
+      </div>
+      <br />
+      <br />
+      <br />
+      <div className="flex h-screen w-screen items-center justify-center">
         <div className="z-10 w-full max-w-md overflow-hidden rounded-2xl border border-gray-100 shadow-xl">
           <div className="flex flex-col items-center justify-center space-y-3 border-b border-gray-200 bg-white px-4 py-6 pt-8 text-center sm:px-16">
-            <a href="">
+            <a href="/">
               <img
-                src="/logo.png"
+                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
                 alt="Logo"
                 className="h-10 w-10 rounded-full"
                 width={20}
@@ -104,112 +116,89 @@ export default function Home() {
             <p className="text-sm text-gray-500">
               Use your flat no. to get your required orders to your doorstep
             </p>
-            <form className="flex flex-col space-y-4 bg-gray-50 px-4 py-8 sm:px-16"></form>
+            <CacheProvider>
+              <ChakraProvider theme={extendTheme({ initialColorMode: "dark" })}>
+                <Container
+                  textAlign="center"
+                  fontSize="2xl"
+                  p="1em"
+                  maxW="450px"
+                  mt={12}
+                >
+                  {error && (
+                    <Text color="red.300" my={4} fontSize="xl">
+                      {error}
+                    </Text>
+                  )}
+                  <FormControl
+                    isRequired
+                    isInvalid={touched.name && !values.name}
+                    mb={5}
+                  >
+                    <FormLabel>Flat no.</FormLabel>
+                    <Input
+                      type="text"
+                      name="name"
+                      errorBorderColor="red.300"
+                      value={values.name}
+                      onChange={handleChange}
+                      onBlur={onBlur}
+                    />
+                    <FormErrorMessage>Required</FormErrorMessage>
+                  </FormControl>
+
+                  <FormControl
+                    isRequired
+                    isInvalid={touched.email && !values.email}
+                    mb={5}
+                  >
+                    <FormLabel>Email</FormLabel>
+                    <Input
+                      type="email"
+                      name="email"
+                      errorBorderColor="red.300"
+                      value={values.email}
+                      onChange={handleChange}
+                      onBlur={onBlur}
+                    />
+                    <FormErrorMessage>Required</FormErrorMessage>
+                  </FormControl>
+
+                  <FormControl
+                    isRequired
+                    isInvalid={touched.message && !values.message}
+                    mb={5}
+                  >
+                    <FormLabel>Message</FormLabel>
+                    <Textarea
+                      typeof="text"
+                      name="message"
+                      rows={4}
+                      errorBorderColor="red.300"
+                      value={values.message}
+                      onChange={handleChange}
+                      onBlur={onBlur}
+                    />
+                    <FormErrorMessage>Required</FormErrorMessage>
+                  </FormControl>
+
+                  <Button
+                    variant="outline"
+                    colorScheme="blue"
+                    isLoading={isLoading}
+                    disabled={!values.name || !values.email || !values.message}
+                    onClick={onSubmit}
+                  >
+                    Submit
+                  </Button>
+                  <br />
+                </Container>
+              </ChakraProvider>
+            </CacheProvider>
           </div>
         </div>
       </div>
-      <CacheProvider>
-        <ChakraProvider theme={extendTheme({ initialColorMode: "dark" })}>
-          <Container
-            textAlign="center"
-            fontSize="2xl"
-            p="1em"
-            maxW="450px"
-            mt={12}
-          >
-            <Heading>Preorder</Heading>
-            {error && (
-              <Text color="red.300" my={4} fontSize="xl">
-                {error}
-              </Text>
-            )}
-            <FormControl
-              isRequired
-              isInvalid={touched.name && !values.name}
-              mb={5}
-            >
-              <FormLabel>Flat no.</FormLabel>
-              <Input
-                type="text"
-                name="name"
-                errorBorderColor="red.300"
-                value={values.name}
-                onChange={handleChange}
-                onBlur={onBlur}
-              />
-              <FormErrorMessage>Required</FormErrorMessage>
-            </FormControl>
-
-            <FormControl
-              isRequired
-              isInvalid={touched.email && !values.email}
-              mb={5}
-            >
-              <FormLabel>Email</FormLabel>
-              <Input
-                type="email"
-                name="email"
-                errorBorderColor="red.300"
-                value={values.email}
-                onChange={handleChange}
-                onBlur={onBlur}
-              />
-              <FormErrorMessage>Required</FormErrorMessage>
-            </FormControl>
-
-            <FormControl
-              mb={5}
-              isRequired
-              isInvalid={touched.subject && !values.subject}
-            >
-              <FormLabel>Subject</FormLabel>
-              <Input
-                type="text"
-                name="subject"
-                errorBorderColor="red.300"
-                value={values.subject}
-                onChange={handleChange}
-                onBlur={onBlur}
-              />
-              <FormErrorMessage>Required</FormErrorMessage>
-            </FormControl>
-
-            <FormControl
-              isRequired
-              isInvalid={touched.message && !values.message}
-              mb={5}
-            >
-              <FormLabel>Message</FormLabel>
-              <Textarea
-                typeof="text"
-                name="message"
-                rows={4}
-                errorBorderColor="red.300"
-                value={values.message}
-                onChange={handleChange}
-                onBlur={onBlur}
-              />
-              <FormErrorMessage>Required</FormErrorMessage>
-            </FormControl>
-
-            <Button
-              variant="outline"
-              colorScheme="blue"
-              isLoading={isLoading}
-              disabled={
-                !values.name ||
-                !values.email ||
-                !values.subject ||
-                !values.message
-              }
-              onClick={onSubmit}
-            >
-              Submit
-            </Button>
-            <br />
-          </Container>
-        </ChakraProvider>
-      </CacheProvider>
+      <Footer />
     </>
   );
 }

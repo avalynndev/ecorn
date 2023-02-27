@@ -17,9 +17,9 @@ export default async function RootLayout({
     <html lang="en">
       <body className={inter.variable}>
         <Toaster />
-        {AuthStatusDiv}
         {children}
       </body>
     </html>
   );
 }
+//  {AuthStatusDiv} Line: 19,20

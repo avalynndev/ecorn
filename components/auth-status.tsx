@@ -12,16 +12,6 @@ export default async function AuthStatus() {
           </p>
         )}
       </div>
-      <div className="absolute top-5 w-full flex justify-center items-center">
-        {session && (
-          <>
-            <br />
-            <br />
-            <br />
-            <SignOut />
-          </>
-        )}
-      </div>
     </>
   );
 }
