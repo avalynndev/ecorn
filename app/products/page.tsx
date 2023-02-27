@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { Pagination } from "@nextui-org/react";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import Image from "next/image";
 
 const products = [
   {

@@ -1,6 +1,7 @@
-"use client"
-import SignOut from "@/components/sign-out";
+"use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import SignOut from "@/components/sign-out";
 import { sendContactForm } from "../../lib/api";
 interface FormValues {
   name: string;
@@ -26,8 +27,8 @@ const initState: FormState = {
   error: "",
   values: initValues,
 };
-import { CacheProvider } from '@chakra-ui/next-js'
-import { ChakraProvider } from '@chakra-ui/react'
+import { CacheProvider } from "@chakra-ui/next-js";
+import { ChakraProvider } from "@chakra-ui/react";
 import {
   Button,
   FormControl,
@@ -40,7 +41,6 @@ import {
 } from "@chakra-ui/react";
 import { Heading, Container, extendTheme } from "@chakra-ui/react";
 
-
 export default function Home() {
   const toast = useToast();
   const [state, setState] = useState<FormState>(initState);
@@ -48,10 +48,12 @@ export default function Home() {
 
   const { values, isLoading, error } = state;
 
-  const onBlur = ({ target }:any) =>
+  const onBlur = ({ target }: any) =>
     setTouched((prev) => ({ ...prev, [target.name]: true }));
 
-  const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+  const handleChange = ({
+    target,
+  }: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     setState((prev) => ({
       ...prev,
       values: {
@@ -75,7 +77,7 @@ export default function Home() {
         duration: 2000,
         position: "top",
       });
-    } catch (error:any) {
+    } catch (error: any) {
       setState((prev) => ({
         ...prev,
         isLoading: false,
@@ -85,90 +87,129 @@ export default function Home() {
   };
 
   return (
-    <CacheProvider>
-        <ChakraProvider theme={extendTheme({ initialColorMode: "dark", })}>
-            <Container textAlign="center" fontSize="2xl" p="1em" maxW="450px" mt={12}>
+    <>
+      <div className="flex h-screen w-screen items-center justify-center bg-gray-50">
+        <div className="z-10 w-full max-w-md overflow-hidden rounded-2xl border border-gray-100 shadow-xl">
+          <div className="flex flex-col items-center justify-center space-y-3 border-b border-gray-200 bg-white px-4 py-6 pt-8 text-center sm:px-16">
+            <a href="">
+              <img
+                src="/logo.png"
+                alt="Logo"
+                className="h-10 w-10 rounded-full"
+                width={20}
+                height={20}
+              />
+            </a>
+            <h3 className="text-xl font-semibold">Pre-Order</h3>
+            <p className="text-sm text-gray-500">
+              Use your flat no. to get your required orders to your doorstep
+            </p>
+            <form className="flex flex-col space-y-4 bg-gray-50 px-4 py-8 sm:px-16"></form>
+          </div>
+        </div>
+      </div>
+      <CacheProvider>
+        <ChakraProvider theme={extendTheme({ initialColorMode: "dark" })}>
+          <Container
+            textAlign="center"
+            fontSize="2xl"
+            p="1em"
+            maxW="450px"
+            mt={12}
+          >
             <Heading>Preorder</Heading>
-      {error && (
-        <Text color="red.300" my={4} fontSize="xl">
-          {error}
-        </Text>
-      )}
-                <FormControl isRequired isInvalid={touched.name && !values.name} mb={5}>
-        <FormLabel>Name</FormLabel>
-        <Input
-          type="text"
-          name="name"
-          errorBorderColor="red.300"
-          value={values.name}
-          onChange={handleChange}
-          onBlur={onBlur}
-        />
-        <FormErrorMessage>Required</FormErrorMessage>
-      </FormControl>
+            {error && (
+              <Text color="red.300" my={4} fontSize="xl">
+                {error}
+              </Text>
+            )}
+            <FormControl
+              isRequired
+              isInvalid={touched.name && !values.name}
+              mb={5}
+            >
+              <FormLabel>Flat no.</FormLabel>
+              <Input
+                type="text"
+                name="name"
+                errorBorderColor="red.300"
+                value={values.name}
+                onChange={handleChange}
+                onBlur={onBlur}
+              />
+              <FormErrorMessage>Required</FormErrorMessage>
+            </FormControl>
 
-      <FormControl isRequired isInvalid={touched.email && !values.email} mb={5}>
-        <FormLabel>Email</FormLabel>
-        <Input
-          type="email"
-          name="email"
-          errorBorderColor="red.300"
-          value={values.email}
-          onChange={handleChange}
-          onBlur={onBlur}
-        />
-        <FormErrorMessage>Required</FormErrorMessage>
-      </FormControl>
+            <FormControl
+              isRequired
+              isInvalid={touched.email && !values.email}
+              mb={5}
+            >
+              <FormLabel>Email</FormLabel>
+              <Input
+                type="email"
+                name="email"
+                errorBorderColor="red.300"
+                value={values.email}
+                onChange={handleChange}
+                onBlur={onBlur}
+              />
+              <FormErrorMessage>Required</FormErrorMessage>
+            </FormControl>
 
-      <FormControl
-        mb={5}
-        isRequired
-        isInvalid={touched.subject && !values.subject}
-      >
-        <FormLabel>Subject</FormLabel>
-        <Input
-          type="text"
-          name="subject"
-          errorBorderColor="red.300"
-          value={values.subject}
-          onChange={handleChange}
-          onBlur={onBlur}
-        />
-        <FormErrorMessage>Required</FormErrorMessage>
-      </FormControl>
+            <FormControl
+              mb={5}
+              isRequired
+              isInvalid={touched.subject && !values.subject}
+            >
+              <FormLabel>Subject</FormLabel>
+              <Input
+                type="text"
+                name="subject"
+                errorBorderColor="red.300"
+                value={values.subject}
+                onChange={handleChange}
+                onBlur={onBlur}
+              />
+              <FormErrorMessage>Required</FormErrorMessage>
+            </FormControl>
 
-      <FormControl
-        isRequired
-        isInvalid={touched.message && !values.message}
-        mb={5}
-      >
-        <FormLabel>Message</FormLabel>
-        <Textarea
-          typeof="text"
-          name="message"
-          rows={4}
-          errorBorderColor="red.300"
-          value={values.message}
-          onChange={handleChange}
-          onBlur={onBlur}
-        />
-        <FormErrorMessage>Required</FormErrorMessage>
-      </FormControl>
+            <FormControl
+              isRequired
+              isInvalid={touched.message && !values.message}
+              mb={5}
+            >
+              <FormLabel>Message</FormLabel>
+              <Textarea
+                typeof="text"
+                name="message"
+                rows={4}
+                errorBorderColor="red.300"
+                value={values.message}
+                onChange={handleChange}
+                onBlur={onBlur}
+              />
+              <FormErrorMessage>Required</FormErrorMessage>
+            </FormControl>
 
-      <Button
-        variant="outline"
-        colorScheme="blue"
-        isLoading={isLoading}
-        disabled={
-          !values.name || !values.email || !values.subject || !values.message
-        }
-        onClick={onSubmit}
-      >
-        Submit
-          </Button>
-          <br/><SignOut />
-            </Container>
+            <Button
+              variant="outline"
+              colorScheme="blue"
+              isLoading={isLoading}
+              disabled={
+                !values.name ||
+                !values.email ||
+                !values.subject ||
+                !values.message
+              }
+              onClick={onSubmit}
+            >
+              Submit
+            </Button>
+            <br />
+          </Container>
         </ChakraProvider>
-    </CacheProvider>
-  )
-};
+      </CacheProvider>
+    </>
+  );
+}
