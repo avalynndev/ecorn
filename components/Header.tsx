@@ -3,6 +3,7 @@
 import React from "react";
 import { useState } from "react";
 import { Dialog } from "@headlessui/react";
+import Image from "next/image";
 const navigation = [
   { name: "Product", href: "/product" },
   { name: "Features", href: "/features" },
@@ -17,7 +18,7 @@ const Header = () => {
         <div className="flex lg:flex-1">
           <a href="/" className="-m-1.5 p-1.5">
             <span className="sr-only">title</span>
-            <img
+            <Image
               className="h-8"
               src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
               alt=""
@@ -58,7 +59,7 @@ const Header = () => {
           <div className="flex items-center justify-between">
             <a href="#" className="-m-1.5 p-1.5">
               <span className="sr-only">Your Company</span>
-              <img
+              <Image
                 className="h-8"
                 src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
                 alt=""
