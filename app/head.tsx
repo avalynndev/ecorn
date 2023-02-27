@@ -1,6 +1,6 @@
 export default function Head() {
-  const title = "title...";
-  const description = "description coming soon";
+  const title = "Ecorn";
+  const description = "A online website were you can buy and pre-order your required items. ;)";
   return (
     <>
       <title>{title}</title>
