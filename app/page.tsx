@@ -3,7 +3,6 @@ import React from "react";
 import Footer from "@/components/Footer";
 import HeroSection from "@/components/HeroSection";
 import Header from "@/components/Header";
-import Image from "next/image";
 
 const products = [
   {

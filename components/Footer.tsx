@@ -38,7 +38,7 @@ const Footer = () => {
         </div>
         <div className="mt-8 md:mt-0 md:order-1">
           <p className="text-sm text-center text-gray-400">
-             Created with 💖 by Sahasra. 
+             Created with 💖 for Sahasra. 
           </p>
         </div>
       </div>

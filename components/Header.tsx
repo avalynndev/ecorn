@@ -1,16 +1,30 @@
 "use client";
-
-import React from "react";
-import { useState } from "react";
+import { signOut } from "next-auth/react";
+import { getServerSession } from "next-auth/next";
+import React, { useState, useEffect } from "react";
 import { Dialog } from "@headlessui/react";
-import Image from "next/image";
+
+interface Session {}
+
 const navigation = [
   { name: "Products", href: "/products" },
-  { name: "Pre-Order", href: "/preorder"}
+  { name: "Pre-Order", href: "/preorder" },
 ];
 
 const Header = () => {
+  const [session, setSession] = useState<Session | null>(null);
+
+  useEffect(() => {
+    const fetchSession = async () => {
+      const serverSession = await getServerSession();
+      setSession(serverSession);
+    };
+
+    fetchSession();
+  }, []);
+
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   return (
     <div className="px-6 pt-6 lg:px-8">
       <nav className="flex items-center justify-between" aria-label="Global">
@@ -45,12 +59,23 @@ const Header = () => {
           ))}
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <a
-            href="/preorder"
-            className="text-sm font-semibold leading-6 text-gray-900"
-          >
-            Log in <span aria-hidden="true">&rarr;</span>
-          </a>
+          {session ? (
+            <a
+              href="/login"
+              className="text-black-200 text-sm hover:text-stone-200 transition-all"
+            >
+              Log In &rarr;
+            </a>
+          ) : (
+            <>
+              <button
+                className="text-black-200 text-sm hover:text-stone-200 transition-all"
+                onClick={() => signOut()}
+              >
+                Sign Out &rarr;
+              </button>
+            </>
+          )}{" "}
         </div>
       </nav>
       <Dialog as="div" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
@@ -86,12 +111,23 @@ const Header = () => {
                 ))}
               </div>
               <div className="py-6">
-                <a
-                  href="/preorder"
-                  className="-mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-6 text-gray-900 hover:bg-gray-400/10"
-                >
-                  Log in
-                </a>
+                {session ? (
+                  <a
+                    href="/login"
+                    className="text-black-200 text-sm hover:text-stone-200 transition-all"
+                  >
+                    Log In &rarr;
+                  </a>
+                ) : (
+                  <>
+                    <button
+                      className="text-black-200 text-sm hover:text-stone-200 transition-all"
+                      onClick={() => signOut()}
+                    >
+                      Sign Out &rarr;
+                    </button>
+                  </>
+                )}
               </div>
             </div>
           </div>
