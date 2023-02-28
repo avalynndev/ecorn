@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 import { Container, extendTheme } from "@chakra-ui/react";
 import { useState } from "react";
-import SignOut from "@/components/sign-out";
+import LoadingDots from "@/components/loading-dots";
 import { sendContactForm } from "../../lib/api";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -41,9 +41,14 @@ const initState: FormState = {
   values: initValues,
 };
 
+function wait(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 export default function Home() {
   const toast = useToast();
   const [state, setState] = useState<FormState>(initState);
+  const [loading, setLoading] = useState(false);
   const [touched, setTouched] = useState<{ [key: string]: boolean }>({});
 
   const { values, isLoading, error } = state;
@@ -85,21 +90,13 @@ export default function Home() {
       }));
     }
   };
-
+  const isLoggedIn = true;
+  setLoading(true);
+  wait(2000);
+  setLoading(false);
   return (
     <>
-      <div className="absolute top-5 w-full flex justify-center items-center">
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <SignOut />
-      </div>
-      <br />
-      <br />
-      <br />
-      <Header />
+      <Header isLoggedIn={isLoggedIn} />
       <div className="flex h-screen items-center justify-center">
         <div className="z-10 w-full max-w-md overflow-hidden rounded-2xl border border-gray-100 shadow-xl">
           <div className="flex flex-col items-center justify-center space-y-3 border-b border-gray-200 bg-white px-4 py-6 pt-8 text-center sm:px-16">
@@ -116,85 +113,93 @@ export default function Home() {
             <p className="text-sm text-gray-500">
               Use your flat no. to get your required orders to your doorstep
             </p>
-            <CacheProvider>
-              <ChakraProvider theme={extendTheme({ initialColorMode: "dark" })}>
-                <Container
-                  textAlign="center"
-                  fontSize="2xl"
-                  p="1em"
-                  maxW="450px"
-                  mt={12}
+            {loading ? (
+              <LoadingDots color="#808080" />
+            ) : (
+              <CacheProvider>
+                <ChakraProvider
+                  theme={extendTheme({ initialColorMode: "dark" })}
                 >
-                  {error && (
-                    <Text color="red.300" my={4} fontSize="xl">
-                      {error}
-                    </Text>
-                  )}
-                  <FormControl
-                    isRequired
-                    isInvalid={touched.name && !values.name}
-                    mb={5}
+                  <Container
+                    textAlign="center"
+                    fontSize="2xl"
+                    p="1em"
+                    maxW="450px"
+                    mt={12}
                   >
-                    <FormLabel>Flat no.</FormLabel>
-                    <Input
-                      type="text"
-                      name="name"
-                      errorBorderColor="red.300"
-                      value={values.name}
-                      onChange={handleChange}
-                      onBlur={onBlur}
-                    />
-                    <FormErrorMessage>Required</FormErrorMessage>
-                  </FormControl>
+                    {error && (
+                      <Text color="red.300" my={4} fontSize="xl">
+                        {error}
+                      </Text>
+                    )}
+                    <FormControl
+                      isRequired
+                      isInvalid={touched.name && !values.name}
+                      mb={5}
+                    >
+                      <FormLabel>Flat no.</FormLabel>
+                      <Input
+                        type="text"
+                        name="name"
+                        errorBorderColor="red.300"
+                        value={values.name}
+                        onChange={handleChange}
+                        onBlur={onBlur}
+                      />
+                      <FormErrorMessage>Required</FormErrorMessage>
+                    </FormControl>
 
-                  <FormControl
-                    isRequired
-                    isInvalid={touched.email && !values.email}
-                    mb={5}
-                  >
-                    <FormLabel>Email</FormLabel>
-                    <Input
-                      type="email"
-                      name="email"
-                      errorBorderColor="red.300"
-                      value={values.email}
-                      onChange={handleChange}
-                      onBlur={onBlur}
-                    />
-                    <FormErrorMessage>Required</FormErrorMessage>
-                  </FormControl>
+                    <FormControl
+                      isRequired
+                      isInvalid={touched.email && !values.email}
+                      mb={5}
+                    >
+                      <FormLabel>Email</FormLabel>
+                      <Input
+                        type="email"
+                        name="email"
+                        errorBorderColor="red.300"
+                        value={values.email}
+                        onChange={handleChange}
+                        onBlur={onBlur}
+                      />
+                      <FormErrorMessage>Required</FormErrorMessage>
+                    </FormControl>
 
-                  <FormControl
-                    isRequired
-                    isInvalid={touched.message && !values.message}
-                    mb={5}
-                  >
-                    <FormLabel>Message</FormLabel>
-                    <Textarea
-                      typeof="text"
-                      name="message"
-                      rows={4}
-                      errorBorderColor="red.300"
-                      value={values.message}
-                      onChange={handleChange}
-                      onBlur={onBlur}
-                    />
-                    <FormErrorMessage>Required</FormErrorMessage>
-                  </FormControl>
+                    <FormControl
+                      isRequired
+                      isInvalid={touched.message && !values.message}
+                      mb={5}
+                    >
+                      <FormLabel>Message</FormLabel>
+                      <Textarea
+                        typeof="text"
+                        name="message"
+                        rows={4}
+                        errorBorderColor="red.300"
+                        value={values.message}
+                        onChange={handleChange}
+                        onBlur={onBlur}
+                      />
+                      <FormErrorMessage>Required</FormErrorMessage>
+                    </FormControl>
 
-                  <Button
-                    variant="outline"
-                    colorScheme="blue"
-                    isLoading={isLoading}
-                    disabled={!values.name || !values.email || !values.message}
-                    onClick={onSubmit}
-                  >
-                    Submit
-                  </Button>
-                  <br />
-                </Container>
-              </ChakraProvider>
-            </CacheProvider>
+                    <Button
+                      variant="outline"
+                      colorScheme="blue"
+                      isLoading={isLoading}
+                      disabled={
+                        !values.name || !values.email || !values.message
+                      }
+                      onClick={onSubmit}
+                    >
+                      Submit
+                    </Button>
+                    <br />
+                  </Container>
+                </ChakraProvider>
+              </CacheProvider>
+            )}
           </div>
         </div>
       </div>
