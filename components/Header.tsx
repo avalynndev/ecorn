@@ -64,7 +64,7 @@ const Header = () => {
               href="/login"
               className="text-black-200 text-sm hover:text-stone-200 transition-all"
             >
-              Log In &rarr;
+              Sign In/Out &rarr;
             </a>
           ) : (
             <>
@@ -72,7 +72,7 @@ const Header = () => {
                 className="text-black-200 text-sm hover:text-stone-200 transition-all"
                 onClick={() => signOut()}
               >
-                Sign Out &rarr;
+                Sign In/Out &rarr;
               </button>
             </>
           )}{" "}
@@ -116,7 +116,7 @@ const Header = () => {
                     href="/login"
                     className="text-black-200 text-sm hover:text-stone-200 transition-all"
                   >
-                    Log In &rarr;
+                    Sign In/Out &rarr;
                   </a>
                 ) : (
                   <>
@@ -124,7 +124,7 @@ const Header = () => {
                       className="text-black-200 text-sm hover:text-stone-200 transition-all"
                       onClick={() => signOut()}
                     >
-                      Sign Out &rarr;
+                      Sign In/Out &rarr;
                     </button>
                   </>
                 )}
