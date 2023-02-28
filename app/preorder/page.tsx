@@ -12,7 +12,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { Container, extendTheme } from "@chakra-ui/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import LoadingDots from "@/components/loading-dots";
 import { sendContactForm } from "../../lib/api";
 import Header from "@/components/Header";
@@ -41,16 +41,22 @@ const initState: FormState = {
   values: initValues,
 };
 
-function wait(ms: number): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
 
 export default function Home() {
   const toast = useToast();
   const [state, setState] = useState<FormState>(initState);
-  const [loading, setLoading] = useState(false);
-  const [touched, setTouched] = useState<{ [key: string]: boolean }>({});
+  const [showComponent1, setShowComponent1] = useState(true);
+  const [showComponent2, setShowComponent2] = useState(false);
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowComponent1(false);
+      setShowComponent2(true);
+    }, 1000); // delay for 5 seconds
+
+    return () => clearTimeout(timer); // cleanup function to prevent memory leaks
+  }, []);
+  const [touched, setTouched] = useState<{ [key: string]: boolean }>({});
   const { values, isLoading, error } = state;
 
   const onBlur = ({ target }: any) =>
@@ -91,9 +97,6 @@ export default function Home() {
     }
   };
   const isLoggedIn = true;
-  setLoading(true);
-  wait(2000);
-  setLoading(false);
   return (
     <>
       <Header isLoggedIn={isLoggedIn} />
@@ -113,9 +116,8 @@ export default function Home() {
             <p className="text-sm text-gray-500">
               Use your flat no. to get your required orders to your doorstep
             </p>
-            {loading ? (
-              <LoadingDots color="#808080" />
-            ) : (
+            {showComponent1 && <LoadingDots color="#808080" />}
+            {showComponent2 && (
               <CacheProvider>
                 <ChakraProvider
                   theme={extendTheme({ initialColorMode: "dark" })}
