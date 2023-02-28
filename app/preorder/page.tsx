@@ -11,7 +11,7 @@ import {
   Textarea,
   useToast,
 } from "@chakra-ui/react";
-import { Heading, Container, extendTheme } from "@chakra-ui/react";
+import { Container, extendTheme } from "@chakra-ui/react";
 import { useState } from "react";
 import SignOut from "@/components/sign-out";
 import { sendContactForm } from "../../lib/api";
@@ -88,6 +88,17 @@ export default function Home() {
 
   return (
     <>
+      <div className="absolute top-5 w-full flex justify-center items-center">
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <SignOut />
+      </div>
+      <br />
+      <br />
+      <br />
       <Header />
       <div className="flex h-screen items-center justify-center">
         <div className="z-10 w-full max-w-md overflow-hidden rounded-2xl border border-gray-100 shadow-xl">
